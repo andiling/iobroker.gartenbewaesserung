@@ -1,0 +1,1757 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="comment" id="9.h4YJN|}YM??uSd-gJu" x="63" y="-312">
+    <field name="COMMENT">Bug: Telegram MSG kommt 4x??</field>
+  </block>
+  <block type="comment" id="FeQ1B|Otdj={{yCJY)!d" x="63" y="-262">
+    <field name="COMMENT">TODO Regen abfragen + Schalter</field>
+    <next>
+      <block type="comment" id="7Q+Bw.XBDso(L`sZW!QD">
+        <field name="COMMENT">weatherunderground.0.current.precip_1hr_metric</field>
+        <next>
+          <block type="controls_if" id="]s}48WsKVJcB(2F|jRAc" disabled="true">
+            <value name="IF0">
+              <block type="logic_compare" id="+;5!QWACNsn6z_EUfD8)">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="get_value" id="Or]GZFFu2k]`)`6X*FcS">
+                    <field name="ATTR">val</field>
+                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_Regen_beachten</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_boolean" id="42kCG})X{!w#vHC8cW`x">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="comment" id="4sY4?aiO1*xF}XjB0^Ay">
+                <field name="COMMENT">TODO Wind abfragen + Schalter</field>
+                <next>
+                  <block type="controls_if" id="0,6[8}#9/Hk)sbS]buxS">
+                    <value name="IF0">
+                      <block type="logic_compare" id="f08DxXk6ZUW4KH8_:gkQ">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="get_value" id="G9vL=H%2j?{XZ0ooUlP@">
+                            <field name="ATTR">val</field>
+                            <field name="OID">javascript.0.Gartenbewaesserung.Automatik_Wind_beachten</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="logic_boolean" id="AVYr(Qt2S+oq9m9,.cN}">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="schedule" id="iV*OX)IgKWl^-z~[/beM" x="63" y="-37">
+    <field name="SCHEDULE">*/50 * * * * *</field>
+    <statement name="STATEMENT">
+      <block type="comment" id="l]MDc586:D0LmCyTJakC">
+        <field name="COMMENT">Läuft die Bewässerung aktuell?</field>
+        <next>
+          <block type="comment" id="VC^V8#EFInh2+p5D!T0#">
+            <field name="COMMENT">Wenn nicht mache weiter, sonst abbruch</field>
+            <next>
+              <block type="controls_if" id="vf|]]s1D*R1TjNCRhld%">
+                <mutation elseif="1" else="1"></mutation>
+                <value name="IF0">
+                  <block type="logic_compare" id="7Aih}!pm:-Gk@=G5GVp]">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="get_value" id="}fXV^MrIO@)}Hx@QeVZo">
+                        <field name="ATTR">val</field>
+                        <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="logic_boolean" id="-Eqb3jvn^TcB7q2+-=}J">
+                        <field name="BOOL">FALSE</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="debug" id="@7vArvDF@?b*M7.A?8nC">
+                    <field name="Severity">log</field>
+                    <value name="TEXT">
+                      <shadow type="text" id="desX;nG:/cUkIfKh;XEh">
+                        <field name="TEXT">Bewässerung_ist_aktiviert = false</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="6)u+;lsK9PGE]t9^*fOF">
+                        <value name="IF0">
+                          <block type="logic_compare" id="/3.OZRW)g?h(o%i1Qz!,">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="get_value" id="JWCN`OczRg,p?6/4BzxR">
+                                <field name="ATTR">val</field>
+                                <field name="OID">javascript.0.Gartenbewaesserung.Automatik</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="logic_boolean" id="u^*[,RS4]KZ%c3XuF-7m">
+                                <field name="BOOL">TRUE</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="debug" id="ylkekF{ex.bqPBioy0Fq">
+                            <field name="Severity">log</field>
+                            <value name="TEXT">
+                              <shadow type="text" id="dnlcUX=W6r.=_b^Y!g`e">
+                                <field name="TEXT">Bewässerung_ist_aktiviert = false &amp; Automatik = true - Warte auf cronjob Zeit</field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="comment" id="fDIa_n/2([KIFZICw~sE">
+                                <field name="COMMENT">Cron Job mit Werten aus VIS</field>
+                                <next>
+                                  <block type="schedule_create" id="9jdz|QUaA4[bQ+}|+E?n">
+                                    <field name="NAME">automatik</field>
+                                    <value name="SCHEDULE">
+                                      <shadow type="field_cron" id="CDP7guYb@?u{E_TM;fM4">
+                                        <field name="CRON">* * * * *</field>
+                                      </shadow>
+                                      <block type="cron_builder" id="qs~MemkI.Ijm=,=f://X">
+                                        <mutation seconds="false" as_line="false"></mutation>
+                                        <field name="LINE">FALSE</field>
+                                        <field name="WITH_SECONDS">FALSE</field>
+                                        <value name="DOW">
+                                          <shadow type="text" id="AfXYBjh#CUl^BcTU2Zf)">
+                                            <field name="TEXT">*</field>
+                                          </shadow>
+                                          <block type="get_value" id="mNI;~3=-?9Od`f0EckZE">
+                                            <field name="ATTR">val</field>
+                                            <field name="OID">javascript.0.Gartenbewaesserung.Zeitsteuerung_Automatik.Wochentag</field>
+                                          </block>
+                                        </value>
+                                        <value name="MONTHS">
+                                          <shadow type="text" id="=,T)1hG6Ne%[cvB[(FJ7">
+                                            <field name="TEXT">*</field>
+                                          </shadow>
+                                        </value>
+                                        <value name="DAYS">
+                                          <shadow type="text" id="rpWAa[W?-p!S[YWGm+a`">
+                                            <field name="TEXT">*</field>
+                                          </shadow>
+                                        </value>
+                                        <value name="HOURS">
+                                          <shadow type="text" id="3MGm6%My}bdr%da2y/Uh">
+                                            <field name="TEXT">*</field>
+                                          </shadow>
+                                          <block type="get_value" id="V40,Te8pQs{sPoaUInnU">
+                                            <field name="ATTR">val</field>
+                                            <field name="OID">javascript.0.Gartenbewaesserung.Zeitsteuerung_Automatik.Startzeit_Stunde</field>
+                                          </block>
+                                        </value>
+                                        <value name="MINUTES">
+                                          <shadow type="text" id="rx_-H2:%rk{|w~GFXywr">
+                                            <field name="TEXT">*</field>
+                                          </shadow>
+                                          <block type="get_value" id="?b,~WLbQ!b^*PeWYLbU|">
+                                            <field name="ATTR">val</field>
+                                            <field name="OID">javascript.0.Gartenbewaesserung.Zeitsteuerung_Automatik.Startzeit_Minute</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="STATEMENT">
+                                      <block type="debug" id="]=s0kvgi{4egOV-N`|+S">
+                                        <field name="Severity">log</field>
+                                        <value name="TEXT">
+                                          <shadow type="text" id="cfJJn{6:TKL/]+wiJ7?Z">
+                                            <field name="TEXT">Cronjob ausgeführt</field>
+                                          </shadow>
+                                        </value>
+                                        <next>
+                                          <block type="comment" id="4TOf7sFgNQ5kl+PP:mCy">
+                                            <field name="COMMENT">Entkalkung ausschalten</field>
+                                            <next>
+                                              <block type="controls_if" id="}`h?}V:pK#wo!a[:4sE`">
+                                                <mutation else="1"></mutation>
+                                                <value name="IF0">
+                                                  <block type="logic_compare" id="{8[CZ?xzx-wk{Y*ze8I#">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="get_value" id="yA/mJ-=T=~g.a{!~*H;q">
+                                                        <field name="ATTR">val</field>
+                                                        <field name="OID">javascript.0.Gartenbewaesserung.Entkalkung_ausschalten</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="logic_boolean" id="gj|hjGLF.ItWWF9)[1Nq">
+                                                        <field name="BOOL">TRUE</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO0">
+                                                  <block type="debug" id="1Fm:niwb[g.U~P:LW?sx">
+                                                    <field name="Severity">log</field>
+                                                    <value name="TEXT">
+                                                      <shadow type="text" id=";#X`WtkJTqQ*2YIPE3Dm">
+                                                        <field name="TEXT">Entkalkungsanlage wird abgeschaltet</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <next>
+                                                      <block type="control" id="#fqhWL0!!Fkqb7H{Kn.T">
+                                                        <mutation delay_input="false"></mutation>
+                                                        <field name="OID">hm-rpc.2.0001D709A56F9D.3.STATE</field>
+                                                        <field name="WITH_DELAY">FALSE</field>
+                                                        <value name="VALUE">
+                                                          <block type="logic_boolean" id="KC`e49bIKAr-0CA.{c.J">
+                                                            <field name="BOOL">FALSE</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <statement name="ELSE">
+                                                  <block type="debug" id="*!@1obA/j|Q!Z)Mh{KJ?">
+                                                    <field name="Severity">log</field>
+                                                    <value name="TEXT">
+                                                      <shadow type="text" id="g`X0fDV]^1}mj|bV~D([">
+                                                        <field name="TEXT">Entkalkungsanlage bleibt aktiviert</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="comment" id="#R3:aJ_XSoDN:FC45rWp">
+                                                    <field name="COMMENT">++++ Berechne Laufzeiten ++++</field>
+                                                    <next>
+                                                      <block type="controls_if" id="O]Ho`o;{Q3ilyHr7-y.P" collapsed="true">
+                                                        <mutation elseif="6"></mutation>
+                                                        <value name="IF0">
+                                                          <block type="logic_operation" id="1aonMK[R;#vpSnbz4qO8">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="z1Jj/W1=e1lp+lFZ|y(v">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="mRY|OKU4Y3;JG/,Vj0_F">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="T3:Xb;5f6IIAPZY0)M!w">
+                                                                    <field name="BOOL">TRUE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="V.gS8j#yn#|39ALgnkj:">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id=":yQ9Vt3:^jGTnkzJ4i=/">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="y*;#_k0b.ezc_O5LM{Ei">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="39R,EOlRRh0r7Cl,5m.G">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="u`#%=W|S^jkObmTO4Qg0">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="c8!cWoXeNCeBXm@fze5]">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="n+hlz+Un:vvMykI;EGzA">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO0">
+                                                          <block type="comment" id="jc2_yV#(;/vRpvcY5h|4">
+                                                            <field name="COMMENT">Innen</field>
+                                                            <next>
+                                                              <block type="debug" id="#eAx75R5[o.LnZ`J]O(t">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="O:b{9mCdNHAFFAE=d%#t">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = true | Außen = false | Sträucher = false</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="3}J)rv1k6JTs9Dc4sV9g">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_arithmetic" id="g5N)VTUQ^fl8o#NZ*FB.">
+                                                                        <field name="OP">MULTIPLY</field>
+                                                                        <value name="A">
+                                                                          <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="get_value" id="+On,xDG]Bu{h+h4X]X{f">
+                                                                            <field name="ATTR">val</field>
+                                                                            <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number" id="O^R^}A9R23Qm9z,m;/YA">
+                                                                            <field name="NUM">60000</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="+wH=TnS`j0H5z1r[^9Qj">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_number" id="J`zqf^I+XELuyZ}hz?Qt">
+                                                                            <field name="NUM">0</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="s1E-90C1,9):+)pwJ?5u">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_number" id="ey1m#Pp~}%DKM+4r_S44">
+                                                                                <field name="NUM">0</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF1">
+                                                          <block type="logic_operation" id="6N:a,kQrBLpC`wwyq.vy">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="NMuC=O)px?bK;Zlqd=Uj">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="n0i7n2]K6}K4x2X~,Kgo">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id=":AQ^?N{g,T09Knf:)@-,">
+                                                                    <field name="BOOL">FALSE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="D}z={sSLyo-SG7nYX3Et">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id=")BDI?ffA/1qN2fidg~`W">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="NT3(cxN^0+wpSIz}kdC^">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="h0_X9xbKm:}4+Dw_9CgK">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="tUru9z?3-}X|}lGziBBV">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="-}k4/xz|+hVXp*Q4j5K(">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="UFKqs};PU2Q)%Fme*Nt^">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO1">
+                                                          <block type="comment" id="cK?=w%9}/]Fk(4e)2bRr">
+                                                            <field name="COMMENT">Außen</field>
+                                                            <next>
+                                                              <block type="debug" id="2x5s[WIBILxafK!fgFZd">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="+2{H,jGEjE#[Qn?^Oa~v">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = false | Außen = true | Sträucher = false</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id=";WL{D.LutNb?nq-W*{rJ">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_number" id="wQ2fC1(PA4e{}30TW5XF">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="GgKa-/FCEl7d#w25:Ll]">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_arithmetic" id="K8WK]x+CAYmV*X.bw/_U">
+                                                                            <field name="OP">MULTIPLY</field>
+                                                                            <value name="A">
+                                                                              <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                <field name="NUM">1</field>
+                                                                              </shadow>
+                                                                              <block type="get_value" id="Xh;G3^C%sVkI*,?SGyF7">
+                                                                                <field name="ATTR">val</field>
+                                                                                <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <shadow type="math_number" id="D/!x;IgwDOi2g~ua9q4n">
+                                                                                <field name="NUM">60000</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id=":4zF-vm!]F(EmTPHbcAT">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_number" id="[k+]-/^;`BSa2O7OE]f5">
+                                                                                <field name="NUM">0</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF2">
+                                                          <block type="logic_operation" id="FOzHO!Uy]nEwQWZc*Gn9">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="-)0pd}S?HQ@1nY2Wi])+">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="g|o]XP%Bbh48fO#~?2}8">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="GQUyRza/Yj8b@PX)oFx^">
+                                                                    <field name="BOOL">FALSE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="Q#O?pvGdul:(-7j)w3ob">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id="tFdKSkmZygT8yFq7!=Se">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id=";nOz2BHNqtzD,u6w8RdW">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="j?tFzw=Rd:@Lwi6tkeTs">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="oz4SK?DV8mo1|-[4(FNN">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="tVv+x(/nw3w|bgD^No0z">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="])a/r.WK738rlX@He8hB">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO2">
+                                                          <block type="comment" id="/UbSe1fFpWFqrJ:vq9eE">
+                                                            <field name="COMMENT">Sträucher</field>
+                                                            <next>
+                                                              <block type="debug" id="v@+I]u/6ezetXK(9t`dG">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id=",-pZ.ds3N7nTG8s^.1+!">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = false | Außen = false | Sträucher = true</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="Pn79f-y?Ym`O0z4Yd.78">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_number" id="e,`j~Q)dP_RsJva7@jQd">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="jSdAY1+LTgGhzRgk!]6i">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_number" id="3,0WZ=)!LK!M48j`B=;f">
+                                                                            <field name="NUM">0</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="2onoJ9^WeK=10#kts~]=">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_arithmetic" id="}0?zg0t~Sw(]bo{=p@Hi">
+                                                                                <field name="OP">MULTIPLY</field>
+                                                                                <value name="A">
+                                                                                  <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                    <field name="NUM">1</field>
+                                                                                  </shadow>
+                                                                                  <block type="get_value" id=";nLlC]Kh{?*0TIk@W^7R">
+                                                                                    <field name="ATTR">val</field>
+                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatikStraeucher</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <shadow type="math_number" id="MR]Fn%C9(H}yc-[u0t~a">
+                                                                                    <field name="NUM">60000</field>
+                                                                                  </shadow>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF3">
+                                                          <block type="logic_operation" id="myLV]=L.HtgfWCbFy|iN">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="t!EfY=NUx9:#r-y35)c;">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="=wLzr|D!!4kpHPQ8_T=5">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="s7fPwF]=ed./ZVfYFusG">
+                                                                    <field name="BOOL">TRUE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="#Zb{C?GK1mu4*1^di/[9">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id="m)Rhan__/Q:D/tbVc!9a">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="i#O)`Ya#:QeM91cc01hw">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="J~nQ5#gn?nQh#d6]fq1,">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="ekfit4-/m93,Hhhve.Ob">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="^+#OLppm;uIVN-Ia2kO-">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="~^Xox{@1UXuwx/5YG`t4">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO3">
+                                                          <block type="comment" id="KLk.#nNObO[-/*:}DhpE">
+                                                            <field name="COMMENT">Innen + Außen</field>
+                                                            <next>
+                                                              <block type="debug" id="-26`TK+Qcye}1Nsa#zd]">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="BB5,[wW2d47D2jb/vXw(">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = true | Außen = true | Sträucher = false</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="M(^w,,|@qN{gsB1f{/vR">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_arithmetic" id="Rti`JL5|lP5[EzZaYW@,">
+                                                                        <field name="OP">MULTIPLY</field>
+                                                                        <value name="A">
+                                                                          <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="get_value" id="-M4J`7G#^R:!8k)(a^qL">
+                                                                            <field name="ATTR">val</field>
+                                                                            <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number" id="Sfr~u8UBh=KnO.lNqH)Z">
+                                                                            <field name="NUM">60000</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="aCwlomXgzz.[?c7sbY|J">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_arithmetic" id="RV;1:jjOEAO.nB[`C)Bm">
+                                                                            <field name="OP">MULTIPLY</field>
+                                                                            <value name="A">
+                                                                              <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                <field name="NUM">1</field>
+                                                                              </shadow>
+                                                                              <block type="get_value" id="H;%r1h*ZYEls{b05+g3T">
+                                                                                <field name="ATTR">val</field>
+                                                                                <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <shadow type="math_number" id="mZ(wK=fdybfa=ab1Ytrb">
+                                                                                <field name="NUM">60000</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="EGaAx9]DW8mw{61E%Dv]">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_number" id="X?ocx-K6],[.x(v~(lE{">
+                                                                                <field name="NUM">0</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF4">
+                                                          <block type="logic_operation" id="_#8tE#(PO34wJJCI,,@a">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="#FKe~?yBJMhrVC9ev6o]">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="s(kd[BF@o]Fi4c]r(#h1">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="X.mPGEMZ7_Ed=?_x7C~T">
+                                                                    <field name="BOOL">TRUE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="/Vk[|+DzKA3.(y::RZt5">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id="K-jQ!Vbi+9,nI[[M`{_]">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="!:F-W2d0Otrk_.Fa8tkC">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="(C==,LP=z{vG)SA+{0g+">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="ohl4[-B6~[wU`}j)O]F=">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="-Gu8P@6tg9_mDd}QsDV^">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="s;8sKZp[N@X9oVyGF[2E">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO4">
+                                                          <block type="comment" id="PSe-%(@w},#UI/l`mH9v">
+                                                            <field name="COMMENT">Innen + Außen + Sträucher</field>
+                                                            <next>
+                                                              <block type="debug" id="^f)}i|xn{Rgfvlmyn:zw">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="2Lx=:/DqU.C-PUN`xDR{">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = true | Außen = true | Sträucher = true</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="tznt{q{dxqv8CEaD]dt-">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_arithmetic" id="%^H1e2d/!?Bv4bsaHKV8">
+                                                                        <field name="OP">MULTIPLY</field>
+                                                                        <value name="A">
+                                                                          <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="get_value" id="R1[@mxz3JI=_]6;%(JY+">
+                                                                            <field name="ATTR">val</field>
+                                                                            <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number" id="DW3#.G5T[Wg0YYk%`spS">
+                                                                            <field name="NUM">60000</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="nYi-yzH3Kd6a~@q;maqk">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_arithmetic" id="pAjGH)7jdx,_^|kbIjVT">
+                                                                            <field name="OP">MULTIPLY</field>
+                                                                            <value name="A">
+                                                                              <shadow type="math_number" id="H??KDD9C]{7BV|lG:Bb|">
+                                                                                <field name="NUM">1</field>
+                                                                              </shadow>
+                                                                              <block type="get_value" id="?I32-kXb6lq1uq1+a)q=">
+                                                                                <field name="ATTR">val</field>
+                                                                                <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <shadow type="math_number" id="ns_KJPwcXzC9]--Qj(PO">
+                                                                                <field name="NUM">60000</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="ip}Kk;:cqx_[X^j6Luyt">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_arithmetic" id="{zY[55MH8]X`}3lGcu2G">
+                                                                                <field name="OP">MULTIPLY</field>
+                                                                                <value name="A">
+                                                                                  <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                    <field name="NUM">1</field>
+                                                                                  </shadow>
+                                                                                  <block type="get_value" id="%%}l7gi~cyep:V#m!DZ/">
+                                                                                    <field name="ATTR">val</field>
+                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatikStraeucher</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <shadow type="math_number" id="o%QN~s^6HwK]l3?9Wu~D">
+                                                                                    <field name="NUM">60000</field>
+                                                                                  </shadow>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF5">
+                                                          <block type="logic_operation" id="+tafZ[c)7ayVulxS:s(-">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="Gv#?y0RK0owmg:9EWcF0">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="YE=y%gR@v*_yL4!r1xeZ">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="Qm#/n,_:K8b:o%x:e;|u">
+                                                                    <field name="BOOL">TRUE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="w8.zQjLe|~aXA.yp@!!,">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id="}3J3RCq,)P((?*+YWa`u">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="F}u%*2R6p=]Ys2bnBJsk">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="[Yxs-v/R~!zW2aX9eR|q">
+                                                                        <field name="BOOL">FALSE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="NsDK0z3N-nnOk=Y^|=as">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="otXDLra[:E{LAnG5U]sZ">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="qrjqhlp8V-_ED4}W5M[8">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO5">
+                                                          <block type="comment" id="i[M8U(yC%7Fswb%@w~##">
+                                                            <field name="COMMENT">Innen + Sträucher</field>
+                                                            <next>
+                                                              <block type="debug" id="LTYGp6Lu1TR_)2;[N0R7">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="W-wDj,x+XZl.c[oy|C!i">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = true | Außen = false | Sträucher = true</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="TUB5^NEm,F}fM5)]nt4o">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_arithmetic" id="i*Kp6b`k0u7Vs4.}Bx0f">
+                                                                        <field name="OP">MULTIPLY</field>
+                                                                        <value name="A">
+                                                                          <shadow type="math_number" id="H??KDD9C]{7BV|lG:Bb|">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="get_value" id="%x}=KS4Ko]4#XDRNJ^66">
+                                                                            <field name="ATTR">val</field>
+                                                                            <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number" id="ztH%QQ|bdho5vdjmMY6i">
+                                                                            <field name="NUM">60000</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="V3`{e3l{xRD:MvJ/S2mS">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_number" id="v2gn@XMP?A-25_P[b!JV">
+                                                                            <field name="NUM">0</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="ne,HsJRT*KY|cq.+Ab!o">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_arithmetic" id="YkWg9-XsTd/=`~e4{Tt}">
+                                                                                <field name="OP">MULTIPLY</field>
+                                                                                <value name="A">
+                                                                                  <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                    <field name="NUM">1</field>
+                                                                                  </shadow>
+                                                                                  <block type="get_value" id="nCsB[180bS?@ElKbO!!v">
+                                                                                    <field name="ATTR">val</field>
+                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatikStraeucher</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <shadow type="math_number" id="Zr?;imM^Lt6o/wda|)I|">
+                                                                                    <field name="NUM">60000</field>
+                                                                                  </shadow>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <value name="IF6">
+                                                          <block type="logic_operation" id="h-u+0B!9J(mTecfymN+s">
+                                                            <field name="OP">AND</field>
+                                                            <value name="A">
+                                                              <block type="logic_compare" id="J~ikRmrQ.)N|A};hnJ35">
+                                                                <field name="OP">EQ</field>
+                                                                <value name="A">
+                                                                  <block type="get_value" id="QqrSfI~0wPI82EOB~mD4">
+                                                                    <field name="ATTR">val</field>
+                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_boolean" id="aakG-1ea;fMhBYB~aGLd">
+                                                                    <field name="BOOL">FALSE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <block type="logic_operation" id="RtEi.U7e*tQFd=M].PMf">
+                                                                <field name="OP">AND</field>
+                                                                <value name="A">
+                                                                  <block type="logic_compare" id="GIqTF6l@HUct^9R%-u~(">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="A~pVX5t8VU{{i?Zi{VMJ">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="p%`#|HA,th2sU:ApEk;w">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="logic_compare" id="uZtyW/NCg[gIv99kKoV0">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="Bap@/4MEXYJ|oPRPL+Ok">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="=c=@[2G,b.s222pN*%0x">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <statement name="DO6">
+                                                          <block type="comment" id="GC9p6womq_Ft8!Er^{D4">
+                                                            <field name="COMMENT">Außen + Sträucher</field>
+                                                            <next>
+                                                              <block type="debug" id=".0a1+P|D.U|UGQ=n;wd1">
+                                                                <field name="Severity">log</field>
+                                                                <value name="TEXT">
+                                                                  <shadow type="text" id="H@t7S8d#QgKtP|[,b^vf">
+                                                                    <field name="TEXT">Berechne Laufzeit für Innen  = false | Außen = true | Sträucher = true</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="variables_set" id="B!7f#n8xDC5sgzK|%)M}">
+                                                                    <field name="VAR">laufzeit_rasen_innen</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="math_number" id="x;sgX8~S9VL5=Mp8pbV.">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="GnUa+nc:jm-1s}|liF;w">
+                                                                        <field name="VAR">laufzeit_rasen_aussen</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="math_arithmetic" id=":f{m_}Nn|0q4*e55o-7o">
+                                                                            <field name="OP">MULTIPLY</field>
+                                                                            <value name="A">
+                                                                              <shadow type="math_number" id="H??KDD9C]{7BV|lG:Bb|">
+                                                                                <field name="NUM">1</field>
+                                                                              </shadow>
+                                                                              <block type="get_value" id="D4oC#NEv%yqmn-Uu;N3r">
+                                                                                <field name="ATTR">val</field>
+                                                                                <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatik</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <shadow type="math_number" id="v@3.%.p]%p2O[%9#`+^J">
+                                                                                <field name="NUM">60000</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="l=mWResem(i7bL6]5=zx">
+                                                                            <field name="VAR">laufzeit_straeucher</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="math_arithmetic" id="Hp_efu-DcXne.[(qZ9kG">
+                                                                                <field name="OP">MULTIPLY</field>
+                                                                                <value name="A">
+                                                                                  <shadow id="H??KDD9C]{7BV|lG:Bb|" type="math_number">
+                                                                                    <field name="NUM">1</field>
+                                                                                  </shadow>
+                                                                                  <block type="get_value" id="KRXh-(PB.]I]]*2]1FTv">
+                                                                                    <field name="ATTR">val</field>
+                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.LaufzeitAutomatikStraeucher</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <shadow type="math_number" id="~l(5_dh1Cf-=Z(=w]00F">
+                                                                                    <field name="NUM">60000</field>
+                                                                                  </shadow>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <next>
+                                                          <block type="comment" id="cOn9AwQXCB25f}]n7/(3">
+                                                            <field name="COMMENT">++++ INNEN ++++</field>
+                                                            <next>
+                                                              <block type="controls_if" id="1H0lFTtD{kE!3lEXbBL3">
+                                                                <value name="IF0">
+                                                                  <block type="logic_compare" id="V}jTY:8,*pfT!wyM.,jk">
+                                                                    <field name="OP">EQ</field>
+                                                                    <value name="A">
+                                                                      <block type="get_value" id="/A|6s.s|l(;:QCTl0uY/">
+                                                                        <field name="ATTR">val</field>
+                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Innen</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="logic_boolean" id="MguKQ3aLZsm7B)94es]]">
+                                                                        <field name="BOOL">TRUE</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <statement name="DO0">
+                                                                  <block type="comment" id="IY0z]2o+1s}n,X|cf2sX">
+                                                                    <field name="COMMENT">Ventil Innen einschalten</field>
+                                                                    <next>
+                                                                      <block type="control_ex" id="2[Lmz.xTG[FvMQ+T*y_h">
+                                                                        <field name="TYPE">false</field>
+                                                                        <field name="CLEAR_RUNNING">FALSE</field>
+                                                                        <value name="OID">
+                                                                          <shadow type="field_oid" id="pF*SNEtjd?HvLT*o@eP1">
+                                                                            <field name="oid">hm-rpc.1.OEQ0044740.1.STATE</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                        <value name="VALUE">
+                                                                          <shadow type="logic_boolean" id="nMo+I;/l:wJB-^OkX.D!">
+                                                                            <field name="BOOL">TRUE</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                        <value name="DELAY_MS">
+                                                                          <shadow type="math_number" id="vxUFRK@2Dt]08[=~ho4j">
+                                                                            <field name="NUM">0</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="debug" id=";;Pp+t:I~jm01-2v}0t5">
+                                                                            <field name="Severity">log</field>
+                                                                            <value name="TEXT">
+                                                                              <shadow type="text" id="r]teN1j`;HI,2ZnuMAax">
+                                                                                <field name="TEXT">Gartenbewässerung Innen eingeschaltet (Automatik)</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="comment" id="~+`R+Su#F;CX=w:3`q6c">
+                                                                                <field name="COMMENT">Setzt DP Bew_ist_aktiv auf true (DutyCycle)</field>
+                                                                                <next>
+                                                                                  <block type="update" id="|`nbTG7GJ`#74Co~?wlo">
+                                                                                    <mutation delay_input="false"></mutation>
+                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                    <field name="WITH_DELAY">FALSE</field>
+                                                                                    <value name="VALUE">
+                                                                                      <block type="logic_boolean" id=";cMd0lBc9SSF.=dT-^)5">
+                                                                                        <field name="BOOL">TRUE</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="timeouts_settimeout" id="TIt:~pdraCUT*s/=hRo9">
+                                                                                        <field name="NAME">timeout_ende_innen</field>
+                                                                                        <field name="DELAY">laufzeit_rasen_innen</field>
+                                                                                        <field name="UNIT">ms</field>
+                                                                                        <statement name="STATEMENT">
+                                                                                          <block type="comment" id="8{r*#HBMH04AS0(3V.U[">
+                                                                                            <field name="COMMENT">Ventil Innen ausschalten</field>
+                                                                                            <next>
+                                                                                              <block type="control_ex" id="9jm.0840d4RCuC{.Wu?T">
+                                                                                                <field name="TYPE">false</field>
+                                                                                                <field name="CLEAR_RUNNING">FALSE</field>
+                                                                                                <value name="OID">
+                                                                                                  <shadow type="field_oid" id="RgMC813m[ww@ASk:*dlU">
+                                                                                                    <field name="oid">hm-rpc.1.OEQ0044740.1.STATE</field>
+                                                                                                  </shadow>
+                                                                                                </value>
+                                                                                                <value name="VALUE">
+                                                                                                  <shadow type="logic_boolean" id="ikn9T?FkqRBwjvMbjfN0">
+                                                                                                    <field name="BOOL">FALSE</field>
+                                                                                                  </shadow>
+                                                                                                </value>
+                                                                                                <value name="DELAY_MS">
+                                                                                                  <shadow type="math_number" id="-KKl68}nhRRfxhGdV7(D">
+                                                                                                    <field name="NUM">0</field>
+                                                                                                  </shadow>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="debug" id="P49x4ONcLkWIS#Q9L+zI">
+                                                                                                    <field name="Severity">log</field>
+                                                                                                    <value name="TEXT">
+                                                                                                      <shadow type="text" id="4-?T~{[`i0rRVp}~;Y1v">
+                                                                                                        <field name="TEXT">Gartenbewässerung Innen ausgeschaltet (Automatik)</field>
+                                                                                                      </shadow>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="comment" id=",^/k5~Eyb#f,pW5|w5QT">
+                                                                                                        <field name="COMMENT">TODO Telegram</field>
+                                                                                                        <next>
+                                                                                                          <block type="controls_if" id="1lcpY}Bh=+nGYcpS!xhI">
+                                                                                                            <value name="IF0">
+                                                                                                              <block type="logic_compare" id="+@AFbB;~:cbNiAs}97Y!">
+                                                                                                                <field name="OP">EQ</field>
+                                                                                                                <value name="A">
+                                                                                                                  <block type="get_value" id="z6WS^P.W[j*+ve}UZfk4">
+                                                                                                                    <field name="ATTR">val</field>
+                                                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Automatik_Telegram_Benachrichtigung</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                                <value name="B">
+                                                                                                                  <block type="logic_boolean" id="{4jQTkdK/=UTWDfhp}u^">
+                                                                                                                    <field name="BOOL">TRUE</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <statement name="DO0">
+                                                                                                              <block type="telegram" id="IbA0]z;g?OrA1]:W=|k)">
+                                                                                                                <field name="INSTANCE"></field>
+                                                                                                                <field name="LOG"></field>
+                                                                                                                <value name="MESSAGE">
+                                                                                                                  <shadow type="text" id="#AdJCC!=Oa^6fup7biJ-">
+                                                                                                                    <field name="TEXT">Gartenbewässerung Innen ausgeschaltet (Automatik)</field>
+                                                                                                                  </shadow>
+                                                                                                                </value>
+                                                                                                              </block>
+                                                                                                            </statement>
+                                                                                                            <next>
+                                                                                                              <block type="comment" id="B/GWZ|Lye`K{:IBZ%-XQ">
+                                                                                                                <field name="COMMENT">Setzt DP Bew_ist_aktiv auf false (DutyCycle)</field>
+                                                                                                                <next>
+                                                                                                                  <block type="update" id="]z^9%{wUn{ea%,)K{c](">
+                                                                                                                    <mutation delay_input="false"></mutation>
+                                                                                                                    <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                                                    <field name="WITH_DELAY">FALSE</field>
+                                                                                                                    <value name="VALUE">
+                                                                                                                      <block type="logic_boolean" id="VnqiMy(!9k:Aemcxg(B8">
+                                                                                                                        <field name="BOOL">FALSE</field>
+                                                                                                                      </block>
+                                                                                                                    </value>
+                                                                                                                  </block>
+                                                                                                                </next>
+                                                                                                              </block>
+                                                                                                            </next>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </statement>
+                                                                <next>
+                                                                  <block type="comment" id="@xe~v8M7?r%dSQ2rWrjo">
+                                                                    <field name="COMMENT">++++ AUßEN++++</field>
+                                                                    <next>
+                                                                      <block type="controls_if" id="zbx:*hTC:QEy3YH+T}bV">
+                                                                        <value name="IF0">
+                                                                          <block type="logic_compare" id="w!6,bFN,NrA?ywtQ;5=Y">
+                                                                            <field name="OP">EQ</field>
+                                                                            <value name="A">
+                                                                              <block type="get_value" id="@v~+?%V-Myw.?s(Baw`}">
+                                                                                <field name="ATTR">val</field>
+                                                                                <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Außen</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <block type="logic_boolean" id="o+Q(wtGf4(mfn6L5^NHa">
+                                                                                <field name="BOOL">TRUE</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <statement name="DO0">
+                                                                          <block type="timeouts_settimeout" id="!5%g*6||i/4+SI1ZGjjE">
+                                                                            <field name="NAME">timeout_start_aussen</field>
+                                                                            <field name="DELAY">laufzeit_rasen_innen</field>
+                                                                            <field name="UNIT">ms</field>
+                                                                            <statement name="STATEMENT">
+                                                                              <block type="comment" id="SX8u|C_AbgU#*pP5N0Hb">
+                                                                                <field name="COMMENT">Ventil Außen einschalten</field>
+                                                                                <next>
+                                                                                  <block type="control_ex" id="]/7/3KELDgU9Pn!wKT)H">
+                                                                                    <field name="TYPE">false</field>
+                                                                                    <field name="CLEAR_RUNNING">FALSE</field>
+                                                                                    <value name="OID">
+                                                                                      <shadow type="field_oid" id="7Zk1h`p39.r;OPT+YZ_*">
+                                                                                        <field name="oid">hm-rpc.1.OEQ0044740.2.STATE</field>
+                                                                                      </shadow>
+                                                                                    </value>
+                                                                                    <value name="VALUE">
+                                                                                      <shadow type="logic_boolean" id="kH[p{K:eI:kRuF{zbZpb">
+                                                                                        <field name="BOOL">TRUE</field>
+                                                                                      </shadow>
+                                                                                    </value>
+                                                                                    <value name="DELAY_MS">
+                                                                                      <shadow type="math_number" id="Y?rIs4Vq3a=sH*h#zYN)">
+                                                                                        <field name="NUM">0</field>
+                                                                                      </shadow>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="debug" id="KzlWOnw}/~B]r@uOSSA)">
+                                                                                        <field name="Severity">log</field>
+                                                                                        <value name="TEXT">
+                                                                                          <shadow type="text" id="mgTg@)xV)UE^Q+ORLj~M">
+                                                                                            <field name="TEXT">Gartenbewässerung Außen eingeschaltet (Automatik)</field>
+                                                                                          </shadow>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="comment" id="M|D/nLUfBsVi`L.N1uJC">
+                                                                                            <field name="COMMENT">Setzt DP Bew_ist_aktiv auf true (DutyCycle)</field>
+                                                                                            <next>
+                                                                                              <block type="update" id="Cd?9HMkfz.i^=LNToRom">
+                                                                                                <mutation delay_input="false"></mutation>
+                                                                                                <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                                <field name="WITH_DELAY">FALSE</field>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="logic_boolean" id="Ew=1M:plsx?l6}`DW[`8">
+                                                                                                    <field name="BOOL">TRUE</field>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="timeouts_settimeout" id="OP0iX=*lbOA|X=Ay%@*0">
+                                                                                                    <field name="NAME">timeout_ende_aussen</field>
+                                                                                                    <field name="DELAY">laufzeit_rasen_aussen</field>
+                                                                                                    <field name="UNIT">ms</field>
+                                                                                                    <statement name="STATEMENT">
+                                                                                                      <block type="comment" id="i9!FoWpj.@DdlonF-8hI">
+                                                                                                        <field name="COMMENT">Ventil Außen ausschalten</field>
+                                                                                                        <next>
+                                                                                                          <block type="control_ex" id="KaVqXWx?Z1XcKmT7XeT4">
+                                                                                                            <field name="TYPE">false</field>
+                                                                                                            <field name="CLEAR_RUNNING">FALSE</field>
+                                                                                                            <value name="OID">
+                                                                                                              <shadow type="field_oid" id="449WjuC|fV!DFp_-i{T:">
+                                                                                                                <field name="oid">hm-rpc.1.OEQ0044740.2.STATE</field>
+                                                                                                              </shadow>
+                                                                                                            </value>
+                                                                                                            <value name="VALUE">
+                                                                                                              <shadow type="logic_boolean" id="!)R#p2y--`O7Mg8|Ku0o">
+                                                                                                                <field name="BOOL">FALSE</field>
+                                                                                                              </shadow>
+                                                                                                            </value>
+                                                                                                            <value name="DELAY_MS">
+                                                                                                              <shadow type="math_number" id="3AplBh1aw^=_B3Lf__SW">
+                                                                                                                <field name="NUM">0</field>
+                                                                                                              </shadow>
+                                                                                                            </value>
+                                                                                                            <next>
+                                                                                                              <block type="debug" id="-+C3][4hrWIFs8F5A!5C">
+                                                                                                                <field name="Severity">log</field>
+                                                                                                                <value name="TEXT">
+                                                                                                                  <shadow type="text" id="zW:Oz/t/O4Ui8_NJVi1A">
+                                                                                                                    <field name="TEXT">Gartenbewässerung Außen ausgeschaltet (Automatik)</field>
+                                                                                                                  </shadow>
+                                                                                                                </value>
+                                                                                                                <next>
+                                                                                                                  <block type="comment" id="nHl%F.|FvFsE2=9iTbmF">
+                                                                                                                    <field name="COMMENT">Setzt DP Bew_ist_aktiv auf false (DutyCycle)</field>
+                                                                                                                    <next>
+                                                                                                                      <block type="update" id="]CIkbD(=sQ|;z],a)xNx">
+                                                                                                                        <mutation delay_input="false"></mutation>
+                                                                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                                                        <field name="WITH_DELAY">FALSE</field>
+                                                                                                                        <value name="VALUE">
+                                                                                                                          <block type="logic_boolean" id="!K0Q;dYRrmMN)JZ0DDWB">
+                                                                                                                            <field name="BOOL">FALSE</field>
+                                                                                                                          </block>
+                                                                                                                        </value>
+                                                                                                                      </block>
+                                                                                                                    </next>
+                                                                                                                  </block>
+                                                                                                                </next>
+                                                                                                              </block>
+                                                                                                            </next>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </statement>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </statement>
+                                                                          </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                          <block type="comment" id="!W2/bnSMR|YFh9hpHfLC">
+                                                                            <field name="COMMENT">++++ STRÄUCHER ++++</field>
+                                                                            <next>
+                                                                              <block type="controls_if" id="3.5W%8KofaG#7L^`P!Yz">
+                                                                                <value name="IF0">
+                                                                                  <block type="logic_compare" id="t8Yxq_)jlX(MUyHN7Eq,">
+                                                                                    <field name="OP">EQ</field>
+                                                                                    <value name="A">
+                                                                                      <block type="get_value" id="W@%l%k90EaVX+HDO~KgY">
+                                                                                        <field name="ATTR">val</field>
+                                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Automatik_inkl_Straeucher</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <value name="B">
+                                                                                      <block type="logic_boolean" id="cXm#kSAzxNXPpIz(;QGU">
+                                                                                        <field name="BOOL">TRUE</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <statement name="DO0">
+                                                                                  <block type="comment" id="@%nU|DrP2hT}i3K^E5rC">
+                                                                                    <field name="COMMENT">Warte Zeit für Innen und Aussen Bewässerung</field>
+                                                                                    <next>
+                                                                                      <block type="timeouts_settimeout" id="0o!V)/HSBf9NyLzP)Anc">
+                                                                                        <field name="NAME">timeout_start_aussen_2</field>
+                                                                                        <field name="DELAY">laufzeit_rasen_innen</field>
+                                                                                        <field name="UNIT">ms</field>
+                                                                                        <statement name="STATEMENT">
+                                                                                          <block type="timeouts_settimeout" id=";N:n[/Ae`l5^QHR,*AbA">
+                                                                                            <field name="NAME">timeout_start_aussen_3</field>
+                                                                                            <field name="DELAY">laufzeit_rasen_aussen</field>
+                                                                                            <field name="UNIT">ms</field>
+                                                                                            <statement name="STATEMENT">
+                                                                                              <block type="comment" id=":4Lu4FAD755eKwsHF_b~">
+                                                                                                <field name="COMMENT">Ventil Sträucher einschalten</field>
+                                                                                                <next>
+                                                                                                  <block type="control_ex" id="KczACV0!@V~:/@qFPt=G">
+                                                                                                    <field name="TYPE">false</field>
+                                                                                                    <field name="CLEAR_RUNNING">FALSE</field>
+                                                                                                    <value name="OID">
+                                                                                                      <shadow type="field_oid" id="gfvsBuH-H1=BCVl:0!IN">
+                                                                                                        <field name="oid">hm-rpc.1.OEQ0044740.3.STATE</field>
+                                                                                                      </shadow>
+                                                                                                    </value>
+                                                                                                    <value name="VALUE">
+                                                                                                      <shadow type="logic_boolean" id="Rc6i0eM-+Q;fFalcCJX|">
+                                                                                                        <field name="BOOL">TRUE</field>
+                                                                                                      </shadow>
+                                                                                                    </value>
+                                                                                                    <value name="DELAY_MS">
+                                                                                                      <shadow type="math_number" id="f5@53/TknC7YE#3XwbF/">
+                                                                                                        <field name="NUM">0</field>
+                                                                                                      </shadow>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="debug" id="@z;kpPM}k1dR,*:2eRu%">
+                                                                                                        <field name="Severity">log</field>
+                                                                                                        <value name="TEXT">
+                                                                                                          <shadow type="text" id="MAuacf(i9PE:%7xzr4!;">
+                                                                                                            <field name="TEXT">Gartenbewässerung Sträucher eingeschaltet (Automatik)</field>
+                                                                                                          </shadow>
+                                                                                                        </value>
+                                                                                                        <next>
+                                                                                                          <block type="comment" id="@w?*rV(kwCRE8j0~RZEP">
+                                                                                                            <field name="COMMENT">Setzt DP Bew_ist_aktiv auf true (DutyCycle)</field>
+                                                                                                            <next>
+                                                                                                              <block type="update" id="1yjNg5LKNxg=d.yW147]">
+                                                                                                                <mutation delay_input="false"></mutation>
+                                                                                                                <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                                                <field name="WITH_DELAY">FALSE</field>
+                                                                                                                <value name="VALUE">
+                                                                                                                  <block type="logic_boolean" id="^-ppbkSS6N^TRhUJ(AYQ">
+                                                                                                                    <field name="BOOL">TRUE</field>
+                                                                                                                  </block>
+                                                                                                                </value>
+                                                                                                                <next>
+                                                                                                                  <block type="timeouts_settimeout" id="dz}t[p{p^9a^W@YxBFjo">
+                                                                                                                    <field name="NAME">timeout_ende_straeucher</field>
+                                                                                                                    <field name="DELAY">laufzeit_straeucher</field>
+                                                                                                                    <field name="UNIT">ms</field>
+                                                                                                                    <statement name="STATEMENT">
+                                                                                                                      <block type="comment" id="b[|{c.{Peq~)=P*!dBR4">
+                                                                                                                        <field name="COMMENT">Ventil Sträucher ausschalten</field>
+                                                                                                                        <next>
+                                                                                                                          <block type="control_ex" id="k9]YCOtBUy7bitH|PNSY">
+                                                                                                                            <field name="TYPE">false</field>
+                                                                                                                            <field name="CLEAR_RUNNING">FALSE</field>
+                                                                                                                            <value name="OID">
+                                                                                                                              <shadow type="field_oid" id="~0pxMGwXq@5xn6o~NRwo">
+                                                                                                                                <field name="oid">hm-rpc.1.OEQ0044740.3.STATE</field>
+                                                                                                                              </shadow>
+                                                                                                                            </value>
+                                                                                                                            <value name="VALUE">
+                                                                                                                              <shadow type="logic_boolean" id="cy9jA(/5qUlZmC7/lFKS">
+                                                                                                                                <field name="BOOL">FALSE</field>
+                                                                                                                              </shadow>
+                                                                                                                            </value>
+                                                                                                                            <value name="DELAY_MS">
+                                                                                                                              <shadow type="math_number" id="^3b(Dw`q`7Zt37~m~#n^">
+                                                                                                                                <field name="NUM">0</field>
+                                                                                                                              </shadow>
+                                                                                                                            </value>
+                                                                                                                            <next>
+                                                                                                                              <block type="debug" id="Jl-6C_^C8Hs50,l(fj~K">
+                                                                                                                                <field name="Severity">log</field>
+                                                                                                                                <value name="TEXT">
+                                                                                                                                  <shadow type="text" id="|Ag53Ov5VSHZc/FnxVb5">
+                                                                                                                                    <field name="TEXT">Gartenbewässerung Sträucher ausgeschaltet (Automatik)</field>
+                                                                                                                                  </shadow>
+                                                                                                                                </value>
+                                                                                                                                <next>
+                                                                                                                                  <block type="comment" id="P6d,gBX{:ns{0IDiJkih">
+                                                                                                                                    <field name="COMMENT">Setzt DP Bew_ist_aktiv auf false (DutyCycle)</field>
+                                                                                                                                    <next>
+                                                                                                                                      <block type="update" id="OO|j%FZlP2zB_(qjN:#4">
+                                                                                                                                        <mutation delay_input="false"></mutation>
+                                                                                                                                        <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                                                                                                                                        <field name="WITH_DELAY">FALSE</field>
+                                                                                                                                        <value name="VALUE">
+                                                                                                                                          <block type="logic_boolean" id="Dnhi/1MYeUEp9eTrK;dw">
+                                                                                                                                            <field name="BOOL">FALSE</field>
+                                                                                                                                          </block>
+                                                                                                                                        </value>
+                                                                                                                                      </block>
+                                                                                                                                    </next>
+                                                                                                                                  </block>
+                                                                                                                                </next>
+                                                                                                                              </block>
+                                                                                                                            </next>
+                                                                                                                          </block>
+                                                                                                                        </next>
+                                                                                                                      </block>
+                                                                                                                    </statement>
+                                                                                                                  </block>
+                                                                                                                </next>
+                                                                                                              </block>
+                                                                                                            </next>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </statement>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </statement>
+                                                                                <next>
+                                                                                  <block type="timeouts_settimeout" id="B9!RU!o.@9?c76A{UPXO">
+                                                                                    <field name="NAME">timeout</field>
+                                                                                    <field name="DELAY">laufzeit_rasen_innen</field>
+                                                                                    <field name="UNIT">ms</field>
+                                                                                    <statement name="STATEMENT">
+                                                                                      <block type="timeouts_settimeout" id="V74.=],*Ubc,)i7QrpP;">
+                                                                                        <field name="NAME">timeout2</field>
+                                                                                        <field name="DELAY">laufzeit_rasen_aussen</field>
+                                                                                        <field name="UNIT">ms</field>
+                                                                                        <statement name="STATEMENT">
+                                                                                          <block type="timeouts_settimeout" id="kI{P3ewE?,/oj[UZ{N#+">
+                                                                                            <field name="NAME">timeout3</field>
+                                                                                            <field name="DELAY">laufzeit_straeucher</field>
+                                                                                            <field name="UNIT">ms</field>
+                                                                                            <statement name="STATEMENT">
+                                                                                              <block type="comment" id="%dg9%3*Vz;|8%Z%lxi`i">
+                                                                                                <field name="COMMENT">Entkalkung einschalten</field>
+                                                                                                <next>
+                                                                                                  <block type="controls_if" id="YgVBD~SXpCYG7^vsq)@G">
+                                                                                                    <value name="IF0">
+                                                                                                      <block type="logic_operation" id="?~uW=tBy;QF_WY6A#Gc(">
+                                                                                                        <field name="OP">AND</field>
+                                                                                                        <value name="A">
+                                                                                                          <block type="logic_compare" id="XK2hX!6O`E5bgx|e!s=w">
+                                                                                                            <field name="OP">EQ</field>
+                                                                                                            <value name="A">
+                                                                                                              <block type="get_value" id="~sQGkXi1`yi0ZsgwcKUL">
+                                                                                                                <field name="ATTR">val</field>
+                                                                                                                <field name="OID">javascript.0.Gartenbewaesserung.Entkalkung_ausschalten</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <value name="B">
+                                                                                                              <block type="logic_boolean" id="Tc7;](MLO@ur6~[EA=A_">
+                                                                                                                <field name="BOOL">TRUE</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="B">
+                                                                                                          <block type="logic_compare" id="myBiDv~iON{}hjCaxfx!">
+                                                                                                            <field name="OP">EQ</field>
+                                                                                                            <value name="A">
+                                                                                                              <block type="get_value" id=";FRhf;YSKJn|[E!]xf8r">
+                                                                                                                <field name="ATTR">val</field>
+                                                                                                                <field name="OID">hm-rpc.2.0001D709A56F9D.3.STATE</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                            <value name="B">
+                                                                                                              <block type="logic_boolean" id="=8[m`oGAFgWAQ^Ri=nEY">
+                                                                                                                <field name="BOOL">FALSE</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <statement name="DO0">
+                                                                                                      <block type="debug" id="m}_oXy.wTUQ_w7-%ZxjK">
+                                                                                                        <field name="Severity">log</field>
+                                                                                                        <value name="TEXT">
+                                                                                                          <shadow type="text" id=")*i%:@:{WCoqS|bT@G_5">
+                                                                                                            <field name="TEXT">Entkalkungsanlage wird wieder eingeschaltet</field>
+                                                                                                          </shadow>
+                                                                                                        </value>
+                                                                                                        <next>
+                                                                                                          <block type="control" id="3S(_KbxZU4_dIauRa#`:">
+                                                                                                            <mutation delay_input="false"></mutation>
+                                                                                                            <field name="OID">hm-rpc.2.0001D709A56F9D.3.STATE</field>
+                                                                                                            <field name="WITH_DELAY">FALSE</field>
+                                                                                                            <value name="VALUE">
+                                                                                                              <block type="logic_boolean" id="*i9|^X6w4ibBa*!NgDBy">
+                                                                                                                <field name="BOOL">TRUE</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </statement>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </statement>
+                                                                                          </block>
+                                                                                        </statement>
+                                                                                      </block>
+                                                                                    </statement>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <value name="IF1">
+                  <block type="logic_compare" id="w}n{F!B+lTR8,z1azI2`">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="get_value" id="ShFeawcyh:5tun~_cr);">
+                        <field name="ATTR">val</field>
+                        <field name="OID">javascript.0.Gartenbewaesserung.Bewaesserung_ist_aktiviert</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="logic_boolean" id=":,uhO7TJ9qmgNQ;`r(j4">
+                        <field name="BOOL">TRUE</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO1">
+                  <block type="debug" id="bVs2A2]-+x^W-I!Lt1;]">
+                    <field name="Severity">log</field>
+                    <value name="TEXT">
+                      <shadow type="text" id=")3bL},4s05YkU9:2T;{^">
+                        <field name="TEXT">Bewässerung_ist_aktiviert = true - nichts zu tun</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="debug" id="QZulpP8Duv(dr2faepa9">
+                    <field name="Severity">log</field>
+                    <value name="TEXT">
+                      <shadow type="text" id="xC~~58+W}rOKqz%%`KC{">
+                        <field name="TEXT">Bewässerung_ist_aktiviert --- SONST</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
